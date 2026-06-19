@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHI Cloud Monitor | HIPAA S3 Risk Assessments</title>
+  <meta
+    name="description"
+    content="PHI Cloud Monitor helps healthcare teams identify risky AWS S3 exposure before it becomes a HIPAA problem."
+  />
+
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5d6b82;
+      --border: #dce3ee;
+      --primary: #1457d9;
+      --primary-dark: #0f3f9e;
+      --accent: #e8f0ff;
+      --danger: #b42318;
+      --ok: #087443;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(247, 249, 252, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #4da3ff);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 10px 25px rgba(20, 87, 217, 0.28);
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--primary);
+      box-shadow: 0 12px 24px rgba(20, 87, 217, 0.22);
+    }
+
+    .button:hover {
+      background: var(--primary-dark);
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .button.secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 88px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: 1px solid #cddcff;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      margin: 0 0 24px;
+    }
+
+    .lead {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 0 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+
+    .trust-line {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .scan-card {
+      padding: 28px;
+    }
+
+    .scan-card h2 {
+      margin: 0 0 8px;
+      letter-spacing: -0.04em;
+      font-size: 1.45rem;
+    }
+
+    .scan-card p {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .finding {
+      display: flex;
+      gap: 14px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .finding:first-of-type {
+      border-top: 0;
+    }
+
+    .status {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    .status.red {
+      background: var(--danger);
+    }
+
+    .status.green {
+      background: var(--ok);
+    }
+
+    .status.blue {
+      background: var(--primary);
+    }
+
+    .finding strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .finding span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    section {
+      padding: 64px 0;
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+      margin: 0 0 14px;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, 0.04);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      letter-spacing: -0.03em;
+      font-size: 1.22rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      counter-reset: steps;
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      counter-increment: steps;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .step::before {
+      content: counter(steps);
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 4px;
+      letter-spacing: -0.03em;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .pricing {
+      background: #101827;
+      color: white;
+    }
+
+    .pricing .section-header p {
+      color: #b9c4d5;
+    }
+
+    .price-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 26px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      padding: 30px;
+    }
+
+    .price-card h3 {
+      font-size: 1.6rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.04em;
+    }
+
+    .price-card p {
+      margin: 0;
+      color: #b9c4d5;
+    }
+
+    .price {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .price strong {
+      display: block;
+      font-size: 2rem;
+      letter-spacing: -0.05em;
+    }
+
+    .price span {
+      color: #b9c4d5;
+      font-size: 0.95rem;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-box h2 {
+      margin: 0 0 8px;
+      letter-spacing: -0.05em;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .contact-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .price {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo">PHI</span>
+        <span>PHI Cloud Monitor</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#what-we-check">What We Check</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a class="button" href="mailto:contact@phicloudmonitor.com">Request Assessment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">AWS S3 risk assessments for healthcare teams</div>
+
+          <h1>Find risky PHI exposure before it becomes a breach.</h1>
+
+          <p class="lead">
+            PHI Cloud Monitor helps small and midsize healthcare organizations identify
+            risky AWS S3 bucket configuration, access, encryption, and PHI-like object patterns.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button" href="mailto:contact@phicloudmonitor.com?subject=PHI%20Cloud%20Monitor%20Assessment%20Request">
+              Request an Assessment
+            </a>
+            <a class="button secondary" href="#how-it-works">See How It Works</a>
+          </div>
+
+          <p class="trust-line">
+            Designed for focused S3 review. No customer PHI is stored by PHI Cloud Monitor.
+          </p>
+        </div>
+
+        <div class="panel scan-card" aria-label="Example risk report preview">
+          <h2>Example S3 Risk Snapshot</h2>
+          <p>A focused report showing configuration issues and areas that may need review.</p>
+
+          <div class="finding">
+            <span class="status red"></span>
+            <div>
+              <strong>Public access review</strong>
+              <span>Identify buckets where public access settings need attention.</span>
+            </div>
+          </div>
+
+          <div class="finding">
+            <span class="status blue"></span>
+            <div>
+              <strong>Encryption and KMS checks</strong>
+              <span>Review bucket encryption, SSE settings, and KMS configuration.</span>
+            </div>
+          </div>
+
+          <div class="finding">
+            <span class="status red"></span>
+            <div>
+              <strong>PHI-like object patterns</strong>
+              <span>Count likely SSNs, phone numbers, dates of birth, and email patterns.</span>
+            </div>
+          </div>
+
+          <div class="finding">
+            <span class="status green"></span>
+            <div>
+              <strong>Report-ready output</strong>
+              <span>Receive findings, evidence, and recommended remediation steps.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-we-check">
+      <div class="container">
+        <div class="section-header">
+          <h2>Focused checks for S3 environments that may contain PHI.</h2>
+          <p>
+            We look for practical risks that small healthcare teams often miss when AWS usage grows faster than security review.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <h3>Bucket exposure</h3>
+            <p>
+              Review public access settings, bucket policies, ACL posture, and exposure indicators.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Encryption posture</h3>
+            <p>
+              Check bucket encryption, SSE configuration, KMS usage, and areas that may need tighter control.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>PHI-like patterns</h3>
+            <p>
+              Count likely sensitive patterns such as SSNs, phone numbers, dates of birth, and email addresses.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>CloudTrail data events</h3>
+            <p>
+              Identify whether S3 object-level activity logging is enabled where it matters.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Least-privilege review</h3>
+            <p>
+              Use limited cross-account access designed for assessment instead of permanent broad credentials.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Actionable reporting</h3>
+            <p>
+              Get a plain-English report with findings, risk notes, and remediation recommendations.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h2>How the assessment works.</h2>
+          <p>
+            The process is designed to be simple, limited, and practical for small teams that need clarity quickly.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div>
+              <h3>Create a limited AWS role</h3>
+              <p>
+                Your team creates a scoped cross-account role for S3 assessment access. We do not ask for root access or long-term user keys.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>Run the S3 review</h3>
+              <p>
+                PHI Cloud Monitor scans bucket configuration, object metadata, and PHI-like content patterns according to the agreed scope.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>Receive a findings report</h3>
+              <p>
+                You receive a report with risk findings, evidence, and practical remediation steps your team can act on.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div>
+              <h3>Monitor going forward</h3>
+              <p>
+                Optional monthly monitoring can help identify new S3 risk before it grows into a bigger compliance issue.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2>Simple pricing for focused S3 risk review.</h2>
+          <p>
+            Built for small and midsize healthcare organizations that need a practical assessment without hiring a large consulting firm.
+          </p>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <h3>S3 PHI Risk Assessment</h3>
+            <p>
+              Includes scoped onboarding, S3 review, findings report, and remediation guidance.
+              Monthly monitoring is available after the initial assessment.
+            </p>
+          </div>
+
+          <div class="price">
+            <strong>Starting at $5,000</strong>
+            <span>+ optional monitoring</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <h2>Need to know what is sitting in your S3 buckets?</h2>
+            <p>
+              Request an assessment and we will discuss scope, access, timing, and reporting.
+            </p>
+          </div>
+
+          <a class="button" href="mailto:contact@phicloudmonitor.com?subject=PHI%20Cloud%20Monitor%20Assessment%20Request">
+            Contact PHI Cloud Monitor
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 PHI Cloud Monitor LLC. All rights reserved.</span>
+      <span>Built for AWS S3 risk assessment and healthcare data security review.</span>
+    </div>
+  </footer>
+</body>
+</html>
