@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="PHI Cloud Monitor provides fractional SRE, AWS cost and reliability audits, Terraform cleanup, Kubernetes support, and platform engineering help for small AWS teams."
+    content="PHI Cloud Monitor provides fractional SRE, AWS reliability and cost audits, Terraform cleanup, Kubernetes support, observability improvements, and platform engineering help for small AWS teams."
   />
 
   <style>
@@ -141,6 +141,16 @@
       color: var(--primary);
     }
 
+    .inline-link {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
+
     .hero {
       padding: 88px 0 56px;
     }
@@ -185,12 +195,13 @@
       flex-wrap: wrap;
       gap: 14px;
       align-items: center;
-      margin-bottom: 26px;
+      margin-bottom: 18px;
     }
 
     .trust-line {
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: 0.95rem;
+      margin: 0;
     }
 
     .panel {
@@ -266,7 +277,7 @@
     }
 
     .section-header {
-      max-width: 760px;
+      max-width: 780px;
       margin-bottom: 30px;
     }
 
@@ -306,6 +317,59 @@
     .card p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .proof-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .proof-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, 0.04);
+    }
+
+    .proof-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .proof-item span {
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, 0.04);
+    }
+
+    .about-card h3 {
+      margin: 0 0 10px;
+      letter-spacing: -0.03em;
+      font-size: 1.25rem;
+    }
+
+    .about-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .about-card p:last-child {
+      margin-bottom: 0;
     }
 
     .steps {
@@ -383,12 +447,13 @@
     }
 
     .price {
-      white-space: nowrap;
+      white-space: normal;
     }
 
     .price strong {
       display: block;
       font-size: 2rem;
+      line-height: 1.1;
       letter-spacing: -0.05em;
     }
 
@@ -426,8 +491,12 @@
     }
 
     .contact-box p {
-      margin: 0;
+      margin: 0 0 8px;
       color: var(--muted);
+    }
+
+    .contact-box p:last-child {
+      margin-bottom: 0;
     }
 
     footer {
@@ -444,6 +513,13 @@
       flex-wrap: wrap;
     }
 
+    @media (max-width: 980px) {
+      nav ul {
+        gap: 14px;
+        font-size: 0.9rem;
+      }
+    }
+
     @media (max-width: 860px) {
       nav ul {
         display: none;
@@ -458,7 +534,8 @@
       }
 
       .pricing-grid,
-      .contact-box {
+      .contact-box,
+      .about-grid {
         grid-template-columns: 1fr;
       }
 
@@ -480,6 +557,8 @@
       <nav aria-label="Main navigation">
         <ul>
           <li><a href="#services">Services</a></li>
+          <li><a href="#proof">Example Findings</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li>
@@ -516,7 +595,9 @@
           </div>
 
           <p class="trust-line">
-            Best fit: small AWS teams that are too big for guesswork but too small for a full platform team.
+            Human-reviewed findings. No production changes without approval.
+            Contact James directly at
+            <a class="inline-link" href="mailto:james@phicloudmonitor.com">james@phicloudmonitor.com</a>.
           </p>
         </div>
 
@@ -565,7 +646,8 @@
           <h2>Practical platform help for small AWS teams.</h2>
           <p>
             Most small engineering teams do not need a giant consulting project.
-            They need someone experienced to find the risk, explain the tradeoffs, and help fix the highest-impact problems.
+            They need someone experienced to find the risk, explain the tradeoffs,
+            and help fix the highest-impact problems.
           </p>
         </div>
 
@@ -617,6 +699,100 @@
               without hiring a full-time engineer.
             </p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="container">
+        <div class="section-header">
+          <h2>What a senior SRE looks for that generic tools often miss.</h2>
+          <p>
+            Automated scanners are useful, but they often produce long lists without context.
+            The value is knowing which findings are safe, urgent, expensive, or likely to break production.
+          </p>
+        </div>
+
+        <div class="proof-list">
+          <div class="proof-item">
+            <strong>Hardcoded infrastructure dependencies</strong>
+            <span>
+              In a past production environment, application connectivity depended on hardcoded IP behavior
+              around AWS/S3-related access paths. When error rates rose, the useful signal was not just
+              “5xx increased” — it was knowing which dependency pattern was fragile and what operational
+              response restored service.
+            </span>
+          </div>
+
+          <div class="proof-item">
+            <strong>Alerting that points to the real failure mode</strong>
+            <span>
+              Built dashboards and alerts around 4xx/5xx patterns so teams could see when customer-facing
+              errors were rising, distinguish bad requests from service failures, and respond before the issue
+              became invisible noise.
+            </span>
+          </div>
+
+          <div class="proof-item">
+            <strong>Cost and reliability overlap</strong>
+            <span>
+              The same review that finds waste often finds reliability risk: oversized resources nobody understands,
+              old infrastructure nobody owns, missing log retention policy, weak backup checks, or Kubernetes capacity
+              that is both expensive and fragile.
+            </span>
+          </div>
+
+          <div class="proof-item">
+            <strong>Prioritized recommendations instead of a spreadsheet dump</strong>
+            <span>
+              The audit is designed to answer: what should be fixed first, what can wait, what is risky to change,
+              and where the likely monthly savings or reliability improvement actually comes from.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2>About PHI Cloud Monitor.</h2>
+          <p>
+            PHI Cloud Monitor is run by James Wells, a senior SRE / platform engineer focused on AWS infrastructure,
+            reliability, cost control, Terraform, Kubernetes, observability, and practical production operations.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>James Wells</h3>
+            <p>Senior SRE / Platform Engineer</p>
+            <p>Monroe, Georgia · Remote support available</p>
+            <p>
+              Email:
+              <a class="inline-link" href="mailto:james@phicloudmonitor.com">james@phicloudmonitor.com</a>
+            </p>
+            <p>
+              LinkedIn:
+              <a class="inline-link" href="https://www.linkedin.com/in/jjwells0823/">linkedin.com/in/jjwells0823</a>
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h3>Why work with me?</h3>
+            <p>
+              I have spent years working in SRE and platform engineering roles where the job was not just to find problems,
+              but to keep production systems stable, make infrastructure safer to change, and reduce operational noise.
+            </p>
+            <p>
+              My background includes AWS, Kubernetes, Terraform, observability, incident response, dashboards and alerting,
+              infrastructure cleanup, and cloud security/compliance-aware environments.
+            </p>
+            <p>
+              PHI Cloud Monitor exists for teams that need senior infrastructure judgment but are not ready to hire
+              a full-time SRE or platform team.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -689,8 +865,9 @@
             <div>
               <h3>AWS Reliability & Cost Audit</h3>
               <p>
-                A focused review of your AWS environment, cost waste, reliability risk,
-                observability gaps, Terraform concerns, backup posture, and highest-priority fixes.
+                A focused review of one AWS account or one clearly scoped environment.
+                Includes cost waste, reliability risk, observability gaps, Terraform concerns,
+                backup posture, and highest-priority fixes.
               </p>
             </div>
 
@@ -700,11 +877,12 @@
               <li>Reliability and alerting review</li>
               <li>Prioritized remediation report</li>
               <li>Review call included</li>
+              <li>Out of scope: production changes, 24/7 incident response, and multi-account enterprise reviews unless quoted separately</li>
             </ul>
 
             <div class="price">
-              <strong>Starting at $950</strong>
-              <span>Fixed-scope launch offer</span>
+              <strong>$950 fixed-scope audit</strong>
+              <span>Additional accounts or complex environments quoted separately</span>
             </div>
           </div>
 
@@ -723,11 +901,12 @@
               <li>Terraform and Kubernetes support</li>
               <li>Incident/runbook improvement</li>
               <li>Async engineering support</li>
+              <li>Cleanup sprints and implementation work quoted by scope</li>
             </ul>
 
             <div class="price">
-              <strong>Custom monthly retainer</strong>
-              <span>Based on scope and support needs</span>
+              <strong>Retainers from $1,500/month</strong>
+              <span>Ad hoc work available at $150/hour, subject to availability</span>
             </div>
           </div>
         </div>
@@ -742,6 +921,10 @@
             <p>
               Request an audit or ask about fractional SRE support. I will help you figure out
               whether there is enough value to justify the work.
+            </p>
+            <p>
+              Email James directly:
+              <a class="inline-link" href="mailto:james@phicloudmonitor.com">james@phicloudmonitor.com</a>
             </p>
           </div>
 
