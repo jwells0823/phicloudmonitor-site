@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PHI Cloud Monitor | HIPAA S3 Risk Assessments</title>
+
+  <title>PHI Cloud Monitor | Fractional SRE for AWS Teams</title>
+
   <meta
     name="description"
-    content="PHI Cloud Monitor helps healthcare teams identify risky AWS S3 exposure before it becomes a HIPAA problem."
+    content="PHI Cloud Monitor provides fractional SRE, AWS cost and reliability audits, Terraform cleanup, Kubernetes support, and platform engineering help for small AWS teams."
   />
 
   <style>
@@ -21,6 +23,7 @@
       --accent: #e8f0ff;
       --danger: #b42318;
       --ok: #087443;
+      --warning: #b7791f;
       --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
       --radius: 18px;
       --max: 1120px;
@@ -52,7 +55,7 @@
     }
 
     header {
-      background: rgba(247, 249, 252, 0.9);
+      background: rgba(247, 249, 252, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -164,7 +167,7 @@
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2.45rem, 6vw, 4.9rem);
       line-height: 0.98;
       letter-spacing: -0.07em;
       margin: 0 0 24px;
@@ -173,7 +176,7 @@
     .lead {
       font-size: clamp(1.1rem, 2vw, 1.35rem);
       color: var(--muted);
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 0 30px;
     }
 
@@ -244,6 +247,10 @@
       background: var(--primary);
     }
 
+    .status.yellow {
+      background: var(--warning);
+    }
+
     .finding strong {
       display: block;
       margin-bottom: 2px;
@@ -259,7 +266,7 @@
     }
 
     .section-header {
-      max-width: 720px;
+      max-width: 760px;
       margin-bottom: 30px;
     }
 
@@ -349,11 +356,15 @@
       color: #b9c4d5;
     }
 
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
     .price-card {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 26px;
-      align-items: center;
+      gap: 20px;
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: var(--radius);
@@ -361,7 +372,7 @@
     }
 
     .price-card h3 {
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       margin: 0 0 8px;
       letter-spacing: -0.04em;
     }
@@ -372,7 +383,6 @@
     }
 
     .price {
-      text-align: right;
       white-space: nowrap;
     }
 
@@ -385,6 +395,16 @@
     .price span {
       color: #b9c4d5;
       font-size: 0.95rem;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 20px;
+      color: #d8e1ee;
+    }
+
+    .list li {
+      margin: 7px 0;
     }
 
     .contact-box {
@@ -437,7 +457,7 @@
         grid-template-columns: 1fr;
       }
 
-      .price-card,
+      .pricing-grid,
       .contact-box {
         grid-template-columns: 1fr;
       }
@@ -459,10 +479,14 @@
 
       <nav aria-label="Main navigation">
         <ul>
-          <li><a href="#what-we-check">What We Check</a></li>
+          <li><a href="#services">Services</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li><a class="button" href="mailto:contact@phicloudmonitor.com">Request Assessment</a></li>
+          <li>
+            <a class="button" href="mailto:james@phicloudmonitor.com?subject=AWS%20Reliability%20and%20Cost%20Audit">
+              Request Audit
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -472,117 +496,125 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">AWS S3 risk assessments for healthcare teams</div>
+          <div class="eyebrow">Fractional SRE · AWS Cost Control · Platform Engineering</div>
 
-          <h1>Find risky PHI exposure before it becomes a breach.</h1>
+          <h1>Senior AWS/SRE help without hiring a full-time platform engineer.</h1>
 
           <p class="lead">
-             Fractional SRE for AWS teams that are too small for a platform team but too big for guesswork.
-             PHI Cloud Monitor helps small SaaS and engineering teams reduce AWS waste, improve reliability,
-             clean up infrastructure risk, and get senior SRE/platform support without hiring a full-time engineer.
-             Start with a fixed-price AWS Reliability & Cost Audit, then get ongoing fractional SRE support as needed.
+            PHI Cloud Monitor helps small SaaS and engineering teams reduce AWS waste,
+            improve reliability, clean up infrastructure risk, and get practical SRE support
+            without adding a full-time headcount.
           </p>
 
           <div class="hero-actions">
-            <a class="button" href="mailto:contact@phicloudmonitor.com?subject=PHI%20Cloud%20Monitor%20Assessment%20Request">
-              Request an Assessment
+            <a class="button" href="mailto:james@phicloudmonitor.com?subject=AWS%20Reliability%20and%20Cost%20Audit">
+              Request an AWS Audit
             </a>
-            <a class="button secondary" href="#how-it-works">See How It Works</a>
+            <a class="button secondary" href="mailto:james@phicloudmonitor.com?subject=Fractional%20SRE%20Support">
+              Ask About Fractional SRE
+            </a>
           </div>
 
           <p class="trust-line">
-            Designed for focused S3 review. No customer PHI is stored by PHI Cloud Monitor.
+            Best fit: small AWS teams that are too big for guesswork but too small for a full platform team.
           </p>
         </div>
 
-        <div class="panel scan-card" aria-label="Example risk report preview">
-          <h2>Example S3 Risk Snapshot</h2>
-          <p>A focused report showing configuration issues and areas that may need review.</p>
+        <div class="panel scan-card" aria-label="Example audit snapshot">
+          <h2>Example AWS Audit Snapshot</h2>
+          <p>A focused review of cost leaks, reliability risks, and platform issues.</p>
 
           <div class="finding">
             <span class="status red"></span>
             <div>
-              <strong>Public access review</strong>
-              <span>Identify buckets where public access settings need attention.</span>
+              <strong>Cost leaks</strong>
+              <span>Find idle, oversized, forgotten, or misconfigured AWS resources increasing your bill.</span>
+            </div>
+          </div>
+
+          <div class="finding">
+            <span class="status yellow"></span>
+            <div>
+              <strong>Reliability risks</strong>
+              <span>Identify missing alarms, weak runbooks, untested backups, and fragile deploy paths.</span>
             </div>
           </div>
 
           <div class="finding">
             <span class="status blue"></span>
             <div>
-              <strong>Encryption and KMS checks</strong>
-              <span>Review bucket encryption, SSE settings, and KMS configuration.</span>
-            </div>
-          </div>
-
-          <div class="finding">
-            <span class="status red"></span>
-            <div>
-              <strong>PHI-like object patterns</strong>
-              <span>Count likely SSNs, phone numbers, dates of birth, and email patterns.</span>
+              <strong>Terraform and Kubernetes review</strong>
+              <span>Review drift, risky infrastructure patterns, EKS concerns, and deployment safety.</span>
             </div>
           </div>
 
           <div class="finding">
             <span class="status green"></span>
             <div>
-              <strong>Report-ready output</strong>
-              <span>Receive findings, evidence, and recommended remediation steps.</span>
+              <strong>Prioritized fixes</strong>
+              <span>Get a plain-English report showing what to fix first, what can wait, and why.</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="what-we-check">
+    <section id="services">
       <div class="container">
         <div class="section-header">
-          <h2>Focused checks for S3 environments that may contain PHI.</h2>
+          <h2>Practical platform help for small AWS teams.</h2>
           <p>
-            We look for practical risks that small healthcare teams often miss when AWS usage grows faster than security review.
+            Most small engineering teams do not need a giant consulting project.
+            They need someone experienced to find the risk, explain the tradeoffs, and help fix the highest-impact problems.
           </p>
         </div>
 
         <div class="cards">
           <article class="card">
-            <h3>Bucket exposure</h3>
+            <h3>AWS cost leaks</h3>
             <p>
-              Review public access settings, bucket policies, ACL posture, and exposure indicators.
+              Find idle EC2, oversized RDS, unattached EBS, forgotten load balancers,
+              expensive NAT patterns, excessive log retention, and other billing surprises.
             </p>
           </article>
 
           <article class="card">
-            <h3>Encryption posture</h3>
+            <h3>Reliability risks</h3>
             <p>
-              Check bucket encryption, SSE configuration, KMS usage, and areas that may need tighter control.
+              Review alerts, backups, incident paths, single points of failure, scaling gaps,
+              and the weak spots that can turn into outages.
             </p>
           </article>
 
           <article class="card">
-            <h3>PHI-like patterns</h3>
+            <h3>Terraform cleanup</h3>
             <p>
-              Count likely sensitive patterns such as SSNs, phone numbers, dates of birth, and email addresses.
+              Identify drift, unmanaged resources, risky modules, hardcoded values,
+              weak environment separation, and infrastructure that is hard to safely change.
             </p>
           </article>
 
           <article class="card">
-            <h3>CloudTrail data events</h3>
+            <h3>Kubernetes and EKS support</h3>
             <p>
-              Identify whether S3 object-level activity logging is enabled where it matters.
+              Improve cluster reliability, node sizing, workload scheduling, deployment safety,
+              ingress patterns, and observability.
             </p>
           </article>
 
           <article class="card">
-            <h3>Least-privilege review</h3>
+            <h3>Observability and alerting</h3>
             <p>
-              Use limited cross-account access designed for assessment instead of permanent broad credentials.
+              Clean up noisy alerts, missing dashboards, poor 4xx/5xx visibility,
+              CloudWatch gaps, Datadog cost issues, and unclear incident signals.
             </p>
           </article>
 
           <article class="card">
-            <h3>Actionable reporting</h3>
+            <h3>Fractional SRE support</h3>
             <p>
-              Get a plain-English report with findings, risk notes, and remediation recommendations.
+              Get senior AWS, SRE, and platform engineering support on a monthly basis
+              without hiring a full-time engineer.
             </p>
           </article>
         </div>
@@ -592,45 +624,50 @@
     <section id="how-it-works">
       <div class="container">
         <div class="section-header">
-          <h2>How the assessment works.</h2>
+          <h2>Start with a focused audit. Continue only if it makes sense.</h2>
           <p>
-            The process is designed to be simple, limited, and practical for small teams that need clarity quickly.
+            The process is designed for busy teams that need clarity quickly,
+            without a long sales cycle or a risky production change.
           </p>
         </div>
 
         <div class="steps">
           <div class="step">
             <div>
-              <h3>Create a limited AWS role</h3>
+              <h3>Schedule a short scope call</h3>
               <p>
-                Your team creates a scoped cross-account role for S3 assessment access. We do not ask for root access or long-term user keys.
+                We discuss your AWS environment, current pain points, monthly spend,
+                reliability concerns, and whether an audit is the right fit.
               </p>
             </div>
           </div>
 
           <div class="step">
             <div>
-              <h3>Run the S3 review</h3>
+              <h3>Create limited read-only access</h3>
               <p>
-                PHI Cloud Monitor scans bucket configuration, object metadata, and PHI-like content patterns according to the agreed scope.
+                Your team creates scoped AWS access for review. No root access,
+                no long-term user keys, and no production changes without approval.
               </p>
             </div>
           </div>
 
           <div class="step">
             <div>
-              <h3>Receive a findings report</h3>
+              <h3>Receive a prioritized report</h3>
               <p>
-                You receive a report with risk findings, evidence, and practical remediation steps your team can act on.
+                You get a plain-English report covering cost leaks, reliability risks,
+                infrastructure concerns, and the fixes most worth doing first.
               </p>
             </div>
           </div>
 
           <div class="step">
             <div>
-              <h3>Monitor going forward</h3>
+              <h3>Choose cleanup or monthly support</h3>
               <p>
-                Optional monthly monitoring can help identify new S3 risk before it grows into a bigger compliance issue.
+                After the audit, you can fix the findings yourself, request a cleanup sprint,
+                or use PHI Cloud Monitor as a fractional SRE partner.
               </p>
             </div>
           </div>
@@ -641,24 +678,57 @@
     <section class="pricing" id="pricing">
       <div class="container">
         <div class="section-header">
-          <h2>Simple pricing for focused S3 risk review.</h2>
+          <h2>Simple starting offers.</h2>
           <p>
-            Built for small and midsize healthcare organizations that need a practical assessment without hiring a large consulting firm.
+            Start small. Get useful findings. Continue only if the value is clear.
           </p>
         </div>
 
-        <div class="price-card">
-          <div>
-            <h3>S3 PHI Risk Assessment</h3>
-            <p>
-              Includes scoped onboarding, S3 review, findings report, and remediation guidance.
-              Monthly monitoring is available after the initial assessment.
-            </p>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div>
+              <h3>AWS Reliability & Cost Audit</h3>
+              <p>
+                A focused review of your AWS environment, cost waste, reliability risk,
+                observability gaps, Terraform concerns, backup posture, and highest-priority fixes.
+              </p>
+            </div>
+
+            <ul class="list">
+              <li>Read-only AWS review</li>
+              <li>Cost leak findings</li>
+              <li>Reliability and alerting review</li>
+              <li>Prioritized remediation report</li>
+              <li>Review call included</li>
+            </ul>
+
+            <div class="price">
+              <strong>Starting at $950</strong>
+              <span>Fixed-scope launch offer</span>
+            </div>
           </div>
 
-          <div class="price">
-            <strong>Starting at $5,000</strong>
-            <span>+ optional monitoring</span>
+          <div class="price-card">
+            <div>
+              <h3>Fractional SRE Support</h3>
+              <p>
+                Ongoing senior SRE/platform support for small teams that need AWS,
+                Terraform, Kubernetes, observability, and reliability help without full-time hiring.
+              </p>
+            </div>
+
+            <ul class="list">
+              <li>Monthly platform review</li>
+              <li>AWS cost and reliability guardrails</li>
+              <li>Terraform and Kubernetes support</li>
+              <li>Incident/runbook improvement</li>
+              <li>Async engineering support</li>
+            </ul>
+
+            <div class="price">
+              <strong>Custom monthly retainer</strong>
+              <span>Based on scope and support needs</span>
+            </div>
           </div>
         </div>
       </div>
@@ -668,13 +738,14 @@
       <div class="container">
         <div class="contact-box">
           <div>
-            <h2>Need to know what is sitting in your S3 buckets?</h2>
+            <h2>Need a senior SRE set of eyes on your AWS setup?</h2>
             <p>
-              Request an assessment and we will discuss scope, access, timing, and reporting.
+              Request an audit or ask about fractional SRE support. I will help you figure out
+              whether there is enough value to justify the work.
             </p>
           </div>
 
-          <a class="button" href="mailto:contact@phicloudmonitor.com?subject=PHI%20Cloud%20Monitor%20Assessment%20Request">
+          <a class="button" href="mailto:james@phicloudmonitor.com?subject=PHI%20Cloud%20Monitor%20Inquiry">
             Contact PHI Cloud Monitor
           </a>
         </div>
@@ -685,7 +756,7 @@
   <footer>
     <div class="container footer-inner">
       <span>© 2026 PHI Cloud Monitor LLC. All rights reserved.</span>
-      <span>Built for AWS S3 risk assessment and healthcare data security review.</span>
+      <span>Fractional SRE, AWS cost control, reliability audits, and platform engineering support.</span>
     </div>
   </footer>
 </body>
